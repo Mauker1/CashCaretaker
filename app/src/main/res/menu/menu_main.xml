@@ -5,4 +5,8 @@
         android:id="@+id/action_manage_repeating_transactions"
         android:title="@string/manage_repeating_transactions"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_reporting"
+        android:title="@string/reporting"
+        app:showAsAction="never"/>
 </menu>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spent_per_category">Money Spent Per Category</string>
+
+    <array name="reports">
+        <item name="spent_per_category">@string/spent_per_category</item>
+    </array>
+</resources>

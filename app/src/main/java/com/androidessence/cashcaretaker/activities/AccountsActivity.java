@@ -57,6 +57,9 @@ public class AccountsActivity extends AppCompatActivity implements GoogleApiClie
             case R.id.action_manage_repeating_transactions:
                 startRepeatingTransactionsActivity();
                 return true;
+            case R.id.action_reporting:
+                startReportingActivity();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -68,6 +71,14 @@ public class AccountsActivity extends AppCompatActivity implements GoogleApiClie
     private void startRepeatingTransactionsActivity() {
         Intent repeatingTransactionsIntent = new Intent(this, RepeatingTransactionsActivity.class);
         startActivity(repeatingTransactionsIntent);
+    }
+
+    /**
+     * Starts the activity responsible for displaying reporting.
+     */
+    private void startReportingActivity() {
+        Intent reportingIntent = new Intent(this, ReportingActivity.class);
+        startActivity(reportingIntent);
     }
 
     /**

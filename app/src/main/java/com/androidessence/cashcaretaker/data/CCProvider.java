@@ -27,6 +27,9 @@ public class CCProvider extends ContentProvider {
     private static final int REPEATING_TRANSACTION = 40;
     private static final int REPEATING_TRANSACTION_ID = 41;
     private static final int REPEATING_TRANSACTION_DETAILS = 42;
+    private static final int MONEY_PER_CATEGORY = 50;
+
+
 
     private CCDatabaseHelper mOpenHelper;
     private final UriMatcher sUriMatcher = buildUriMatcher();
@@ -45,6 +48,7 @@ public class CCProvider extends ContentProvider {
         matcher.addURI(content, CCContract.PATH_REPEATING_TRANSACTION, REPEATING_TRANSACTION);
         matcher.addURI(content, CCContract.PATH_REPEATING_TRANSACTION + "/#", REPEATING_TRANSACTION_ID);
         matcher.addURI(content, CCContract.PATH_REPEATING_TRANSACTION + "/" + CCContract.PATH_DETAILS, REPEATING_TRANSACTION_DETAILS);
+        matcher.addURI(content, CCContract.PATH_MONEY_PER_CATEGORY, MONEY_PER_CATEGORY);
 
         return matcher;
     }
@@ -56,6 +60,17 @@ public class CCProvider extends ContentProvider {
         sTransactionWithCategoryBuilder.setTables(
                 CCContract.TransactionEntry.TABLE_NAME + " " +
                         "LEFT JOIN " + CCContract.CategoryEntry.TABLE_NAME + " ON " +
+                        CCContract.CategoryEntry.TABLE_NAME + "." + CCContract.CategoryEntry._ID + " = " + CCContract.TransactionEntry.COLUMN_CATEGORY
+        );
+    }
+
+    private static final SQLiteQueryBuilder sCategoriesWithTransactionsBuilder;
+
+    static {
+        sCategoriesWithTransactionsBuilder = new SQLiteQueryBuilder();
+        sCategoriesWithTransactionsBuilder.setTables(
+                CCContract.CategoryEntry.TABLE_NAME + " " +
+                        "LEFT JOIN " + CCContract.TransactionEntry.TABLE_NAME + " ON " +
                         CCContract.CategoryEntry.TABLE_NAME + "." + CCContract.CategoryEntry._ID + " = " + CCContract.TransactionEntry.COLUMN_CATEGORY
         );
     }
@@ -198,6 +213,17 @@ public class CCProvider extends ContentProvider {
                         selection,
                         selectionArgs,
                         null,
+                        null,
+                        sortOrder
+                );
+                break;
+            case MONEY_PER_CATEGORY:
+                retCursor = sCategoriesWithTransactionsBuilder.query(
+                        db,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        CCContract.CategoryEntry.COLUMN_DESCRIPTION,
                         null,
                         sortOrder
                 );

@@ -25,6 +25,7 @@ public class CCContract {
     public static final String PATH_REPEATING_PERIOD = "repeatingPeriod";
     public static final String PATH_REPEATING_TRANSACTION = "repeatingTransaction";
     public static final String PATH_DETAILS = "details";
+    public static final String PATH_MONEY_PER_CATEGORY = "moneyPerCategory";
 
     /**
      * A class representing an Account entry in the database.
@@ -54,6 +55,9 @@ public class CCContract {
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_CATEGORY).build();
 
+        public static final Uri MONEY_PER_CATEGORY_URI =
+                BASE_CONTENT_URI.buildUpon().appendPath(PATH_MONEY_PER_CATEGORY).build();
+
         public static final String CONTENT_TYPE =
                 "vnd.android.cursor.dir/" + CONTENT_URI + "/" + PATH_CATEGORY;
         public static final String CONTENT_ITEM_TYPE =
@@ -61,6 +65,7 @@ public class CCContract {
 
         public static final String TABLE_NAME = "categoryTable";
         public static final String COLUMN_DESCRIPTION = "categoryDescription";
+        public static final String ALIAS_SPENT_IN_CATEGORY = "moneySpentInCategory";
 
         public static Uri buildCategoryUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI, id);
