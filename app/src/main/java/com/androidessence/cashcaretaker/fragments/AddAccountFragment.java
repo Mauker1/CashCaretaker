@@ -85,7 +85,7 @@ public class AddAccountFragment extends Fragment{
             getActivity().getContentResolver().insert(CCContract.AccountEntry.CONTENT_URI, account.getContentValues());
             getActivity().finish();
         } catch(SQLiteException se){
-            mAccountName.setError("Account name already exists.");
+            mAccountName.setError(getString(R.string.duplicate_account_error));
         }
     }
 
@@ -97,12 +97,12 @@ public class AddAccountFragment extends Fragment{
         boolean isValid = true;
 
         if(mAccountName.getText().toString().isEmpty()){
-            mAccountName.setError("Account name cannot be blank.");
+            mAccountName.setError(getString(R.string.blank_account_name));
             isValid = false;
         }
 
         if(mStartingBalance.getText().toString().isEmpty()){
-            mStartingBalance.setError("Starting balance cannot be blank.");
+            mStartingBalance.setError(getString(R.string.blank_account_balance));
             isValid = false;
         }
 

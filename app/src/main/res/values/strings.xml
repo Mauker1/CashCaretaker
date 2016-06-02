@@ -25,4 +25,7 @@
     <string name="edit_transaction">Edit Transaction</string>
     <string name="submit_changes">Submit Changes</string>
     <string name="account_balance">Account Balance: {0, number, currency}</string>
+    <string name="duplicate_account_error">Account name already exists.</string>
+    <string name="blank_account_name">Account name cannot be blank.</string>
+    <string name="blank_account_balance">Starting balance cannot be blank.</string>
 </resources>
