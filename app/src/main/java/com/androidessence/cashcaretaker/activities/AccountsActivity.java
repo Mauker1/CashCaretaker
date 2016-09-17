@@ -22,8 +22,9 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
-import io.fabric.sdk.android.Fabric;
 import org.json.JSONException;
+
+import io.fabric.sdk.android.Fabric;
 
 /**
  * Activity that displays a list of accounts to the user.
@@ -59,6 +60,9 @@ public class AccountsActivity extends CoreActivity implements GoogleApiClient.Co
                 return true;
             case R.id.action_manage_categories:
                 startManageCategoriesActivity();
+                return true;
+            case R.id.action_about:
+                startAboutActivity();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -153,5 +157,10 @@ public class AccountsActivity extends CoreActivity implements GoogleApiClient.Co
     public void onAccountDeleted(long id) {
         // Send id as string
         new SendToDataLayerThread(getString(R.string.delete_account_path), String.valueOf(id)).start();
+    }
+
+    private void startAboutActivity() {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 }

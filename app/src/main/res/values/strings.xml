@@ -29,4 +29,9 @@
     <string name="title_activity_manage_categories">Manage Categories</string>
     <string name="manage_categories">Manage Categories</string>
     <string name="delete_category">Delete Category</string>
+    <string name="app_icon">App Icon</string>
+    <string name="about">About</string>
+    <string name="version_string">Version: %s</string>
+    <string name="google_play_badge">Google Play Badge</string>
+    <string name="reviews">Reviews</string>
 </resources>
