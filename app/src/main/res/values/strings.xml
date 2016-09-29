@@ -34,4 +34,5 @@
     <string name="version_string">Version: %s</string>
     <string name="google_play_badge">Google Play Badge</string>
     <string name="reviews">Reviews</string>
+    <string name="title_about_activity">About</string>
 </resources>
