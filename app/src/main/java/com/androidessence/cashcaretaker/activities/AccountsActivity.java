@@ -22,8 +22,11 @@ import com.google.android.gms.wearable.Node;
 import com.google.android.gms.wearable.NodeApi;
 import com.google.android.gms.wearable.Wearable;
 
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
 import io.fabric.sdk.android.Fabric;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Activity that displays a list of accounts to the user.
@@ -43,6 +46,34 @@ public class AccountsActivity extends CoreActivity implements GoogleApiClient.Co
         setupToolbar(false);
         startAlarm();
         setupClient();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // Connect to data layer
+        googleApiClient.connect();
+
+        Branch branch = Branch.getInstance();
+
+        branch.initSession(new Branch.BranchReferralInitListener(){
+            @Override
+            public void onInitFinished(JSONObject referringParams, BranchError error) {
+                if (error == null) {
+                    // params are the deep linked params associated with the link that the user clicked -> was re-directed to this app
+                    // params will be empty if no data found
+                    // ... insert custom logic here ...
+                } else {
+                    Log.i("MyApp", error.getMessage());
+                }
+            }
+        }, this.getIntent().getData(), this);
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        this.setIntent(intent);
     }
 
     @Override
@@ -90,14 +121,6 @@ public class AccountsActivity extends CoreActivity implements GoogleApiClient.Co
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .build();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-        // Connect to data layer
-        googleApiClient.connect();
     }
 
     @Override
