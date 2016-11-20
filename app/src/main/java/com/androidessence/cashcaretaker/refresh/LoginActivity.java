@@ -114,7 +114,7 @@ public class LoginActivity extends CoreActivity implements GoogleApiClient.OnCon
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(LoginActivity.this, "Logged in: " + getCurrentUser().getDisplayName(), Toast.LENGTH_SHORT).show();
+                            startMainActivity();
                         }
                     }
                 });
@@ -161,6 +161,11 @@ public class LoginActivity extends CoreActivity implements GoogleApiClient.OnCon
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
         startActivityForResult(signInIntent, SIGN_IN_REQUEST);
+    }
+
+    private void startMainActivity() {
+        Intent main = new Intent(this, MainActivity.class);
+        startActivity(main);
     }
 
     @Override

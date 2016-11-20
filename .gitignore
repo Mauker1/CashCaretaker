@@ -9,3 +9,4 @@
 ## Directory-based project format:
 .idea/
 fabric.properties
+credentials.xml
