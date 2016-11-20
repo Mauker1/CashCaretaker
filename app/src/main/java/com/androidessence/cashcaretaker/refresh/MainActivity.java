@@ -13,7 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidessence.cashcaretaker.R;
+import com.androidessence.utility.refresh.User;
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
 
 public class MainActivity extends CoreActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,6 +45,11 @@ public class MainActivity extends CoreActivity
             Glide.with(this).load(getCurrentUser().getPhotoUrl()).into(userImage);
             userName.setText(getCurrentUser().getDisplayName());
             userEmail.setText(getCurrentUser().getEmail());
+
+            // Add user to database
+            DatabaseReference users = getReference("users");
+            User current = new User(getCurrentUser().getUid());
+            users.setValue(current);
         }
     }
 
