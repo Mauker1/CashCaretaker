@@ -3,24 +3,18 @@ package com.androidessence.cashcaretaker.refresh;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidessence.cashcaretaker.R;
-import com.androidessence.utility.refresh.Account;
-import com.androidessence.utility.refresh.User;
 import com.bumptech.glide.Glide;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends CoreActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,6 +45,8 @@ public class MainActivity extends CoreActivity
             userName.setText(getCurrentUser().getDisplayName());
             userEmail.setText(getCurrentUser().getEmail());
         }
+
+        showFragment(AccountsFragment.newInstance());
     }
 
     @Override
@@ -86,5 +82,9 @@ public class MainActivity extends CoreActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void showFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
     }
 }

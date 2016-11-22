@@ -36,7 +36,7 @@ public class CoreActivity extends AppCompatActivity {
 
         currentUser = new User(getCurrentUser().getUid());
 
-        DatabaseReference ref = getUserReference(currentUser.getUid());
+        DatabaseReference ref = getUserReference();
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -58,11 +58,11 @@ public class CoreActivity extends AppCompatActivity {
     }
 
     protected void updateUser() {
-        getUserReference(currentUser.getUid()).setValue(currentUser);
+        getUserReference().setValue(currentUser);
     }
 
-    protected DatabaseReference getUserReference(String uid) {
-        return getReference("users/" + uid);
+    protected DatabaseReference getUserReference() {
+        return getReference("users/" + currentUser.getUid());
     }
 
     protected DatabaseReference getReference(String node) {
