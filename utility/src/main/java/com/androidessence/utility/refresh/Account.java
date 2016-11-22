@@ -9,6 +9,10 @@ public class Account {
     private String name;
     private double startingBalance;
 
+    public Account() {
+
+    }
+
     public Account(String name, double startingBalance) {
         this.name = name;
         this.startingBalance = startingBalance;

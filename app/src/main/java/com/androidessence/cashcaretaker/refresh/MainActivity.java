@@ -7,15 +7,20 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidessence.cashcaretaker.R;
+import com.androidessence.utility.refresh.Account;
 import com.androidessence.utility.refresh.User;
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends CoreActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -45,11 +50,6 @@ public class MainActivity extends CoreActivity
             Glide.with(this).load(getCurrentUser().getPhotoUrl()).into(userImage);
             userName.setText(getCurrentUser().getDisplayName());
             userEmail.setText(getCurrentUser().getEmail());
-
-            // Add user to database
-            DatabaseReference users = getReference("users");
-            User current = new User(getCurrentUser().getUid());
-            users.setValue(current);
         }
     }
 

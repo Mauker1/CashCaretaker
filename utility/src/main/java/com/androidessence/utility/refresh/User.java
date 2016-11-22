@@ -9,19 +9,23 @@ import java.util.List;
  * Created by adam.mcneilly on 11/20/16.
  */
 public class User {
-    private String uuid;
+    private String uid;
     private List<Account> accounts = new ArrayList<>();
 
-    public User(String uuid) {
-        this.uuid = uuid;
+    public User() {
+
+    }
+
+    public User(String uid) {
+        this.uid = uid;
     }
 
     public boolean addAccount(Account account) {
         return accounts.add(account);
     }
 
-    public String getUuid() {
-        return uuid;
+    public String getUid() {
+        return uid;
     }
 
     public List<Account> getAccounts() {
