@@ -2,7 +2,7 @@ package com.androidessence.cashcaretaker.refresh;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,7 +19,7 @@ import com.google.firebase.database.Query;
  *
  * Created by adam.mcneilly on 11/22/16.
  */
-public class AccountsFragment extends Fragment {
+public class AccountsFragment extends CoreFragment {
 
     public static AccountsFragment newInstance() {
         Bundle args = new Bundle();
@@ -35,6 +35,7 @@ public class AccountsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.r_fragment_accounts, container, false);
 
+        // Setup RecyclerView
         Query accounts = ((CoreActivity)getActivity()).getUserReference().child("accounts").orderByChild("name");
 
         FirebaseRecyclerAdapter<Account, AccountViewHolder> adapter = new FirebaseRecyclerAdapter<Account, AccountViewHolder>(
@@ -52,6 +53,20 @@ public class AccountsFragment extends Fragment {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
 
+        // Setup FAB
+        FloatingActionButton addAccount = (FloatingActionButton) view.findViewById(R.id.add_account_fab);
+        addAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showFragment(AddAccountFragment.newInstance());
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public String getFragmentTag() {
+        return AccountsFragment.class.getSimpleName();
     }
 }

@@ -2,9 +2,11 @@ package com.androidessence.cashcaretaker.refresh;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
+import com.androidessence.cashcaretaker.R;
 import com.androidessence.utility.refresh.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,23 +36,29 @@ public class CoreActivity extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
 
-        currentUser = new User(getCurrentUser().getUid());
+        if(getCurrentUser() != null) {
+            currentUser = new User(getCurrentUser().getUid());
 
-        DatabaseReference ref = getUserReference();
-        ref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                if(user != null) {
-                    currentUser = user;
+            DatabaseReference ref = getUserReference();
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    User user = dataSnapshot.getValue(User.class);
+                    if(user != null) {
+                        currentUser = user;
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.e(LOG_TAG, databaseError.getMessage());
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    Log.e(LOG_TAG, databaseError.getMessage());
+                }
+            });
+        }
+    }
+
+    protected void showFragment(CoreFragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment, fragment.getFragmentTag()).addToBackStack(fragment.getFragmentTag()).commit();
     }
 
     protected FirebaseUser getCurrentUser() {
