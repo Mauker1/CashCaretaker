@@ -46,9 +46,7 @@ public class AddAccountFragment extends CoreFragment {
             public void onClick(View view) {
                 if(hasValidInput()) {
                     Account account = new Account(accountName.getText().toString(), Double.parseDouble(startingBalance.getText().toString()));
-                    User user = getCurrentUser();
-                    user.addAccount(account);
-                    updateUser();
+                    FirebaseUtils.addAccount(account);
                     //TODO: Handle completion?
                 }
             }

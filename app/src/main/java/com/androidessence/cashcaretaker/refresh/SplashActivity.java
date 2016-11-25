@@ -15,7 +15,7 @@ public class SplashActivity extends CoreActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if(getCurrentUser() == null) {
+        if(FirebaseUtils.getCurrentFirebaseUser() == null) {
             startLoginActivity();
         } else {
             startMainActivity();

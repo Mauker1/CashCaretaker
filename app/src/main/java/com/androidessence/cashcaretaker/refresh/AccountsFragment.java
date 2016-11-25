@@ -36,22 +36,24 @@ public class AccountsFragment extends CoreFragment {
         View view = inflater.inflate(R.layout.r_fragment_accounts, container, false);
 
         // Setup RecyclerView
-        Query accounts = ((CoreActivity)getActivity()).getUserReference().child("accounts").orderByChild("name");
+        Query accounts = FirebaseUtils.getUserAccounts();
 
-        FirebaseRecyclerAdapter<Account, AccountViewHolder> adapter = new FirebaseRecyclerAdapter<Account, AccountViewHolder>(
-                Account.class, R.layout.list_item_account, AccountViewHolder.class, accounts
-        ) {
-            @Override
-            protected void populateViewHolder(AccountViewHolder viewHolder, Account model, int position) {
-                viewHolder.bind(model);
-            }
-        };
+        if(accounts != null) {
+            FirebaseRecyclerAdapter<Account, AccountViewHolder> adapter = new FirebaseRecyclerAdapter<Account, AccountViewHolder>(
+                    Account.class, R.layout.list_item_account, AccountViewHolder.class, accounts
+            ) {
+                @Override
+                protected void populateViewHolder(AccountViewHolder viewHolder, Account model, int position) {
+                    viewHolder.bind(model);
+                }
+            };
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.account_recycler_view);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(adapter);
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.account_recycler_view);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+            recyclerView.setLayoutManager(linearLayoutManager);
+            recyclerView.setAdapter(adapter);
+        }
 
         // Setup FAB
         FloatingActionButton addAccount = (FloatingActionButton) view.findViewById(R.id.add_account_fab);

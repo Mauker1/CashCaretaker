@@ -37,8 +37,8 @@ public class LoginActivity extends CoreActivity implements GoogleApiClient.OnCon
         authStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(getCurrentUser() != null) {
-                    Log.v(LOG_TAG, "onAuthStateChanged:signedIn: " + getCurrentUser().getUid());
+                if(FirebaseUtils.getCurrentFirebaseUser() != null) {
+                    Log.v(LOG_TAG, "onAuthStateChanged:signedIn: " + FirebaseUtils.getCurrentFirebaseUser().getUid());
                 } else {
                     Log.v(LOG_TAG, "onAuthStateChanged:signedOut");
                 }
@@ -70,14 +70,14 @@ public class LoginActivity extends CoreActivity implements GoogleApiClient.OnCon
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseAuth.addAuthStateListener(authStateListener);
+        FirebaseUtils.getFirebaseAuth().addAuthStateListener(authStateListener);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         if(authStateListener != null) {
-            firebaseAuth.removeAuthStateListener(authStateListener);
+            FirebaseUtils.getFirebaseAuth().removeAuthStateListener(authStateListener);
         }
     }
 
@@ -100,7 +100,7 @@ public class LoginActivity extends CoreActivity implements GoogleApiClient.OnCon
         Log.v(LOG_TAG, "firebaseAuthWithGoogle:" + acct.getId());
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
-        firebaseAuth.signInWithCredential(credential)
+        FirebaseUtils.getFirebaseAuth().signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -122,7 +122,7 @@ public class LoginActivity extends CoreActivity implements GoogleApiClient.OnCon
 
 
     private void createAccount(String email, String password) {
-        firebaseAuth.createUserWithEmailAndPassword(email, password)
+        FirebaseUtils.getFirebaseAuth().createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -140,7 +140,7 @@ public class LoginActivity extends CoreActivity implements GoogleApiClient.OnCon
     }
 
     private void signIn(String email, String password) {
-        firebaseAuth.signInWithEmailAndPassword(email, password)
+        FirebaseUtils.getFirebaseAuth().signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {

@@ -14,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.androidessence.cashcaretaker.R;
+import com.androidessence.utility.refresh.User;
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends CoreActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -40,10 +42,11 @@ public class MainActivity extends CoreActivity
         ImageView userImage = (ImageView) headerView.findViewById(R.id.user_image);
         TextView userName = (TextView) headerView.findViewById(R.id.user_name);
         TextView userEmail = (TextView) headerView.findViewById(R.id.user_email);
-        if(getCurrentUser() != null) {
-            Glide.with(this).load(getCurrentUser().getPhotoUrl()).into(userImage);
-            userName.setText(getCurrentUser().getDisplayName());
-            userEmail.setText(getCurrentUser().getEmail());
+        FirebaseUser user = FirebaseUtils.getCurrentFirebaseUser();
+        if(user != null) {
+            Glide.with(this).load(user.getPhotoUrl()).into(userImage);
+            userName.setText(user.getDisplayName());
+            userEmail.setText(user.getEmail());
         }
 
         showFragment(AccountsFragment.newInstance());
