@@ -10,7 +10,9 @@ import com.androidessence.utility.creator
  *
  * Created by adam.mcneilly on 1/25/17.
  */
-open class BaseModel(): Parcelable {
+open class BaseModel(): Parcelable, SQLiteModel {
+    override val contentValues: ContentValues
+        get() = ContentValues()
 
     constructor(source: Parcel): this()
 

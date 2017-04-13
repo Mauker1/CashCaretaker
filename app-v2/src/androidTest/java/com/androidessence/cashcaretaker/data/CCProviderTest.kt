@@ -1,10 +1,11 @@
 package com.androidessence.cashcaretaker.data
 
+import android.content.ContentUris
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.androidessence.cashcaretaker.AccountsActivity
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertNotNull
+import com.androidessence.cashcaretaker.models.Account
+import junit.framework.Assert.*
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -138,5 +139,24 @@ open class CCProviderTest {
         //-- REPEATING_TRANSACTION_ID --//
         type = activityRule.activity.contentResolver.getType(CCContract.RepeatingTransactionEntry.buildRepeatingTransactionUri(0))
         assertEquals(CCContract.RepeatingTransactionEntry.CONTENT_ITEM_TYPE, type)
+    }
+
+    @Test
+    fun testInsertAccount() {
+        // Create an account and insert it
+        val account = Account()
+        account.name = ACCOUNT_NAME
+        account.balance = ACCOUNT_BALANCE.toDouble()
+
+        val uri = activityRule.activity.contentResolver.insert(CCContract.AccountEntry.CONTENT_URI, account.contentValues)
+        assertNotNull(uri)
+
+        val id = ContentUris.parseId(uri)
+        assertTrue(id > 0)
+    }
+
+    companion object {
+        private val ACCOUNT_NAME = "Checking"
+        private val ACCOUNT_BALANCE = 100
     }
 }
