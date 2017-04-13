@@ -9,7 +9,7 @@ import org.junit.Test
  *
  * Created by adam.mcneilly on 3/5/17.
  */
-class AccountITest {
+class AccountTest {
     @Test
     fun testParcel() {
         val account = Account()

@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.androidessence.cashcaretaker.AccountsActivity
 import com.androidessence.cashcaretaker.models.Account
+import com.androidessence.cashcaretaker.models.Category
 import junit.framework.Assert.*
 import org.junit.After
 import org.junit.Before
@@ -155,8 +156,24 @@ open class CCProviderTest {
         assertTrue(id > 0)
     }
 
+    @Test
+    fun testInsertCategory() {
+        val category = Category()
+        category.description = CATEGORY_DESCRIPTION
+        category.isDefault = CATEGORY_DEFAULT
+
+        val uri = activityRule.activity.contentResolver.insert(CCContract.CategoryEntry.CONTENT_URI, category.contentValues)
+        assertNotNull(uri)
+
+        val id = ContentUris.parseId(uri)
+        assertTrue(id > 0)
+    }
+
     companion object {
         private val ACCOUNT_NAME = "Checking"
         private val ACCOUNT_BALANCE = 100
+
+        private val CATEGORY_DESCRIPTION = "None"
+        private val CATEGORY_DEFAULT = true
     }
 }
