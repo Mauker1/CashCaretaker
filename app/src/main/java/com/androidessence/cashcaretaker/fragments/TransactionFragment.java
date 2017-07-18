@@ -24,7 +24,8 @@ import com.androidessence.cashcaretaker.data.CCContract;
 import com.androidessence.cashcaretaker.dataTransferObjects.Category;
 import com.androidessence.cashcaretaker.dataTransferObjects.Transaction;
 import com.androidessence.cashcaretaker.dataTransferObjects.TransactionDetails;
-import com.androidessence.utility.Utility;
+import com.androidessence.utility.DateUtils;
+import com.androidessence.utility.DateUtilsKt;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -246,7 +247,7 @@ public class TransactionFragment extends CoreFragment implements DatePickerDialo
      */
     private void setDate(Date date) {
         this.date = date;
-        this.dateEditText.setText(Utility.getUIDateString(date));
+        this.dateEditText.setText(DateUtilsKt.asUiString(date));
     }
 
     /**

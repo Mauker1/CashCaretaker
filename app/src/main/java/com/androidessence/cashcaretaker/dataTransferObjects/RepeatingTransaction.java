@@ -6,7 +6,8 @@ import android.os.Parcel;
 
 import com.androidessence.cashcaretaker.core.CoreDTO;
 import com.androidessence.cashcaretaker.data.CCContract;
-import com.androidessence.utility.Utility;
+import com.androidessence.utility.DateUtilsKt;
+import com.androidessence.utility.StringUtilsKt;
 
 import java.util.Date;
 
@@ -57,7 +58,7 @@ public class RepeatingTransaction extends CoreDTO {
         setAmount(cursor.getDouble(cursor.getColumnIndex(CCContract.RepeatingTransactionEntry.COLUMN_AMOUNT)));
         setNotes(cursor.getString(cursor.getColumnIndex(CCContract.RepeatingTransactionEntry.COLUMN_NOTES)));
         String nextDateString = cursor.getString(cursor.getColumnIndex(CCContract.RepeatingTransactionEntry.COLUMN_NEXT_DATE));
-        setNextDate(Utility.getDateFromDb(nextDateString));
+        setNextDate(StringUtilsKt.asDatabaseDate(nextDateString));
         setCategory(cursor.getLong(cursor.getColumnIndex(CCContract.RepeatingTransactionEntry.COLUMN_CATEGORY)));
         int withdrawalInt = cursor.getInt(cursor.getColumnIndex(CCContract.RepeatingTransactionEntry.COLUMN_WITHDRAWAL));
         setWithdrawal(withdrawalInt == 1);
@@ -159,7 +160,7 @@ public class RepeatingTransaction extends CoreDTO {
         values.put(CCContract.RepeatingTransactionEntry.COLUMN_DESCRIPTION, getDescription());
         values.put(CCContract.RepeatingTransactionEntry.COLUMN_AMOUNT, getAmount());
         values.put(CCContract.RepeatingTransactionEntry.COLUMN_NOTES, getNotes());
-        values.put(CCContract.RepeatingTransactionEntry.COLUMN_NEXT_DATE, Utility.getDBDateString(getNextDate()));
+        values.put(CCContract.RepeatingTransactionEntry.COLUMN_NEXT_DATE, DateUtilsKt.asDatabaseString(getNextDate()));
         values.put(CCContract.RepeatingTransactionEntry.COLUMN_CATEGORY, getCategory());
         values.put(CCContract.RepeatingTransactionEntry.COLUMN_WITHDRAWAL, isWithdrawal() ? 1 : 0);
 
@@ -173,7 +174,7 @@ public class RepeatingTransaction extends CoreDTO {
         values.put(CCContract.TransactionEntry.COLUMN_DESCRIPTION, getDescription());
         values.put(CCContract.TransactionEntry.COLUMN_AMOUNT, getAmount());
         values.put(CCContract.TransactionEntry.COLUMN_NOTES, getNotes());
-        values.put(CCContract.TransactionEntry.COLUMN_DATE, Utility.getDBDateString(getNextDate()));
+        values.put(CCContract.TransactionEntry.COLUMN_DATE, DateUtilsKt.asDatabaseString(getNextDate()));
         values.put(CCContract.TransactionEntry.COLUMN_CATEGORY, getCategory());
         values.put(CCContract.TransactionEntry.COLUMN_WITHDRAWAL, isWithdrawal() ? 1 : 0);
 

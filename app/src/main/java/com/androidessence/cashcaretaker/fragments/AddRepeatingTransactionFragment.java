@@ -24,7 +24,7 @@ import com.androidessence.cashcaretaker.dataTransferObjects.Account;
 import com.androidessence.cashcaretaker.dataTransferObjects.Category;
 import com.androidessence.cashcaretaker.dataTransferObjects.RepeatingPeriod;
 import com.androidessence.cashcaretaker.dataTransferObjects.RepeatingTransaction;
-import com.androidessence.utility.Utility;
+import com.androidessence.utility.DateUtilsKt;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -278,7 +278,7 @@ public class AddRepeatingTransactionFragment extends CoreFragment implements Rep
 
     private void setDate(Date date) {
         this.date = date;
-        dateEditText.setText(Utility.getUIDateString(this.date));
+        dateEditText.setText(DateUtilsKt.asUiString(this.date));
     }
 
     /**

@@ -7,7 +7,8 @@ import android.os.Parcelable;
 
 import com.androidessence.cashcaretaker.core.CoreDTO;
 import com.androidessence.cashcaretaker.data.CCContract;
-import com.androidessence.utility.Utility;
+import com.androidessence.utility.DateUtilsKt;
+import com.androidessence.utility.StringUtilsKt;
 
 import java.util.Date;
 
@@ -56,7 +57,7 @@ public class Transaction extends CoreDTO {
         setAmount(cursor.getDouble(cursor.getColumnIndex(CCContract.TransactionEntry.COLUMN_AMOUNT)));
         setNotes(cursor.getString(cursor.getColumnIndex(CCContract.TransactionEntry.COLUMN_NOTES)));
         String dateString = cursor.getString(cursor.getColumnIndex(CCContract.TransactionEntry.COLUMN_DATE));
-        setDate(Utility.getDateFromDb(dateString));
+        setDate(StringUtilsKt.asDatabaseDate(dateString));
         setCategoryID(cursor.getLong(cursor.getColumnIndex(CCContract.TransactionEntry.COLUMN_CATEGORY)));
         int withdrawalInt = cursor.getInt(cursor.getColumnIndex(CCContract.TransactionEntry.COLUMN_WITHDRAWAL));
         setWithdrawal(withdrawalInt == 1);
@@ -148,7 +149,7 @@ public class Transaction extends CoreDTO {
         values.put(CCContract.TransactionEntry.COLUMN_DESCRIPTION, getDescription());
         values.put(CCContract.TransactionEntry.COLUMN_AMOUNT, getAmount());
         values.put(CCContract.TransactionEntry.COLUMN_NOTES, getNotes());
-        values.put(CCContract.TransactionEntry.COLUMN_DATE, Utility.getDBDateString(getDate()));
+        values.put(CCContract.TransactionEntry.COLUMN_DATE, DateUtilsKt.asDatabaseString(getDate()));
         values.put(CCContract.TransactionEntry.COLUMN_CATEGORY, getCategoryID());
         values.put(CCContract.TransactionEntry.COLUMN_WITHDRAWAL, isWithdrawal() ? 1 : 0);
 

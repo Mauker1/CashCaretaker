@@ -18,7 +18,8 @@ import com.androidessence.cashcaretaker.data.CCContract;
 import com.androidessence.cashcaretaker.dataTransferObjects.RepeatingTransaction;
 import com.androidessence.recyclerviewcursoradapter.RecyclerViewCursorAdapter;
 import com.androidessence.recyclerviewcursoradapter.RecyclerViewCursorViewHolder;
-import com.androidessence.utility.Utility;
+import com.androidessence.utility.DoubleUtilsKt;
+import com.androidessence.utility.StringUtilsKt;
 
 /**
  * Adapter for displaying repeating transactions.
@@ -175,23 +176,23 @@ public class RepeatingTransactionAdapter extends RecyclerViewCursorAdapter<Repea
 
             // Set amount
             double amount = cursor.getDouble(AMOUNT_INDEX);
-            mAmountTextView.setText(Utility.getCurrencyString(amount));
+            mAmountTextView.setText(DoubleUtilsKt.asCurrency(amount));
 
             // Set withdrawal. Depending on withdrawal, we need to color certain views.
             int isWithdrawal = cursor.getInt(WITHDRAWAL_INDEX);
             if(isWithdrawal == 1) {
-                mAmountTextView.setText(String.format("-%s", Utility.getCurrencyString(amount)));
+                mAmountTextView.setText(String.format("-%s", DoubleUtilsKt.asCurrency(amount)));
                 mAmountTextView.setTextColor(red);
                 mIndicatorView.setBackgroundColor(red);
             } else{
-                mAmountTextView.setText(Utility.getCurrencyString(amount));
+                mAmountTextView.setText(DoubleUtilsKt.asCurrency(amount));
                 mAmountTextView.setTextColor(primaryTextColor);
                 mIndicatorView.setBackgroundColor(green);
             }
 
             // Set date
             String dateString = cursor.getString(NEXT_DATE_INDEX);
-            mNextDateTextView.setText(String.format("Next date: %s", Utility.getUIDateStringFromDB(dateString)));
+            mNextDateTextView.setText(String.format("Next date: %s", StringUtilsKt.asUiDateString(dateString)));
 
             //TODO: Globals somewhere
             String defaultCategory = "None";

@@ -21,7 +21,7 @@ import com.androidessence.cashcaretaker.data.CCContract;
 import com.androidessence.cashcaretaker.dataTransferObjects.Account;
 import com.androidessence.recyclerviewcursoradapter.RecyclerViewCursorAdapter;
 import com.androidessence.recyclerviewcursoradapter.RecyclerViewCursorViewHolder;
-import com.androidessence.utility.Utility;
+import com.androidessence.utility.DoubleUtilsKt;
 
 /**
  * Adapter that displays all accounts.
@@ -168,7 +168,7 @@ public class AccountAdapter extends RecyclerViewCursorAdapter<AccountAdapter.Acc
 
             // Set balance
             double balance = cursor.getDouble(BALANCE_INDEX);
-            balanceTextView.setText(Utility.getCurrencyString(balance));
+            balanceTextView.setText(DoubleUtilsKt.asCurrency(balance));
 
             // If balance is negative set red
             balanceTextView.setTextColor((balance < 0.00)
