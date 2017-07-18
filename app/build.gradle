@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId "com.androidessence.cashcaretaker"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 25
         versionCode 9
         versionName "1.4.1"
@@ -50,6 +50,7 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.androidessence:recyclerviewcursoradapter:1.0.0'
+    compile 'com.adammcneilly:recyclerviewutils:2.0.2'
     compile 'com.androidessence:materialdesignspecs:1.0.4'
     compile project(':utility')
     compile('com.crashlytics.sdk.android:crashlytics:2.6.2@aar') {
