@@ -1,14 +1,16 @@
 package com.androidessence.cashcaretaker
 
+import android.content.Context
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.view.ViewCompat
+import android.util.AttributeSet
 import android.view.View
 
 /**
  * Behavior for FloatingActionButtons that hides them when a RecyclerView is scrolled upward, and shows them when scrolling occurs the other way.
  */
-class FABScrollBehavior() : FloatingActionButton.Behavior() {
+class FABScrollBehavior(context: Context, attributeSet: AttributeSet) : FloatingActionButton.Behavior() {
 
     override fun onNestedScroll(coordinatorLayout: CoordinatorLayout?, child: FloatingActionButton?, target: View?, dxConsumed: Int, dyConsumed: Int, dxUnconsumed: Int, dyUnconsumed: Int) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed)
