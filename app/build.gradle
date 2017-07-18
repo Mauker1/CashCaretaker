@@ -49,9 +49,7 @@ dependencies {
     compile 'com.android.support:design:24.2.0'
     compile 'com.androidessence:recyclerviewcursoradapter:1.0.0'
     compile 'com.androidessence:materialdesignspecs:1.0.4'
-    compile 'com.google.android.gms:play-services:9.4.0'
     compile project(':utility')
-    wearApp project(':wear')
     compile('com.crashlytics.sdk.android:crashlytics:2.6.2@aar') {
         transitive = true;
     }
