@@ -7,6 +7,7 @@ import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
 
+@Suppress("unused", "UNUSED_PARAMETER")
 /**
  * Behavior for FloatingActionButtons that hides them when a RecyclerView is scrolled upward, and shows them when scrolling occurs the other way.
  */
