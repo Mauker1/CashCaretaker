@@ -1,10 +1,12 @@
 package com.androidessence.cashcaretaker.dataTransferObjects
 
-import android.os.Parcel
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
 
 /**
  * Represents a finance account for the user.
  */
-class AccountR(var name: String = "", var balance: Double = 0.0) {
-    constructor(parcel: Parcel) : this(parcel.readString(), parcel.readDouble())
-}
+@Entity(tableName = "accountTable")
+class AccountR(
+        @PrimaryKey(autoGenerate = false) var name: String = "",
+        var balance: Double = 0.0)

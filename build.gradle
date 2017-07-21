@@ -17,6 +17,13 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        maven { url 'https://maven.google.com' }
+    }
+
+    ext {
+        roomLibraryVersion = "1.0.0-alpha5"
+        rxJavaVersion = "2.0.6"
+        rxAndroidVersion = "2.0.1"
     }
 }
 
