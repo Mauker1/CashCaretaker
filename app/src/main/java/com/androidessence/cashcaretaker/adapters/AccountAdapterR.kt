@@ -12,7 +12,6 @@ import com.adammcneilly.CoreRecyclerViewAdapter
 import com.adammcneilly.CoreViewHolder
 import com.androidessence.cashcaretaker.R
 import com.androidessence.cashcaretaker.activities.TransactionsActivity
-import com.androidessence.cashcaretaker.core.CoreActivity
 import com.androidessence.cashcaretaker.data.CCContract
 import com.androidessence.cashcaretaker.dataTransferObjects.Account
 import com.androidessence.utility.asCurrency

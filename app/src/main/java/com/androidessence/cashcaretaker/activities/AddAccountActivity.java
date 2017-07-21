@@ -11,7 +11,7 @@ import com.androidessence.cashcaretaker.core.CoreActivity;
  *
  * Created by adam.mcneilly on 9/5/16.
  */
-public class AddAccountActivity extends CoreActivity{
+public class AddAccountActivity extends CoreActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
