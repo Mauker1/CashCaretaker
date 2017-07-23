@@ -9,8 +9,10 @@ import com.androidessence.cashcaretaker.activities.AccountsActivity
 import com.androidessence.cashcaretaker.core.AccountDAOR
 import com.androidessence.cashcaretaker.core.CCDatabaseR
 import com.androidessence.cashcaretaker.core.CategoryDAOR
+import com.androidessence.cashcaretaker.core.RepeatingPeriodDAOR
 import com.androidessence.cashcaretaker.dataTransferObjects.AccountR
 import com.androidessence.cashcaretaker.dataTransferObjects.CategoryR
+import com.androidessence.cashcaretaker.dataTransferObjects.RepeatingPeriodR
 import junit.framework.Assert
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
@@ -24,6 +26,7 @@ import org.junit.runner.RunWith
 class CCDatabaseTest {
     private lateinit var accountDao: AccountDAOR
     private lateinit var categoryDao: CategoryDAOR
+    private lateinit var repeatingPeriodDao: RepeatingPeriodDAOR
 
     @Rule @JvmField val activityRule = ActivityTestRule<AccountsActivity>(AccountsActivity::class.java)
 
@@ -35,12 +38,14 @@ class CCDatabaseTest {
                 .build()
         accountDao = database.accountDao()
         categoryDao = database.categoryDao()
+        repeatingPeriodDao = database.repeatingPeriodDao()
     }
 
     @After
     fun teardown() {
         accountDao.deleteAll()
         categoryDao.deleteAll()
+        repeatingPeriodDao.deleteAll()
     }
 
     @Test
@@ -73,7 +78,7 @@ class CCDatabaseTest {
 
         val categories = categoryDao.getCategories()
         assertTrue(categories.isNotEmpty())
-        Assert.assertEquals(testCategory, categories.first())
+        assertEquals(testCategory, categories.first())
     }
 
     @Test
@@ -84,7 +89,29 @@ class CCDatabaseTest {
 
         categoryDao.deleteAll()
         val categories = categoryDao.getCategories()
-        Assert.assertTrue(categories.isEmpty())
+        assertTrue(categories.isEmpty())
+    }
+
+    @Test
+    fun testWriteReadRepeatingPeriods() {
+        val testRepeatingPeriod = RepeatingPeriodR("YEARLY")
+        val ids = repeatingPeriodDao.insert(testRepeatingPeriod)
+        assertTrue(ids.isNotEmpty())
+
+        val repeatingPeriods = repeatingPeriodDao.getRepeatingPeriods()
+        assertTrue(repeatingPeriods.isNotEmpty())
+        assertEquals(testRepeatingPeriod, repeatingPeriods.first())
+    }
+
+    @Test
+    fun testDeleteRepeatingPeriods() {
+        val testRepeatingPeriod = RepeatingPeriodR("YEARLY")
+        val ids = repeatingPeriodDao.insert(testRepeatingPeriod)
+        assertTrue(ids.isNotEmpty())
+
+        repeatingPeriodDao.deleteAll()
+        val repeatingPeriods = repeatingPeriodDao.getRepeatingPeriods()
+        assertTrue(repeatingPeriods.isEmpty())
     }
 
     companion object {
@@ -95,30 +122,3 @@ class CCDatabaseTest {
         }
     }
 }
-
-//@RunWith(AndroidJUnit4.class)
-//public class SimpleEntityReadWriteTest {
-//    private UserDao mUserDao;
-//    private TestDatabase mDb;
-//
-//    @Before
-//    public void createDb() {
-//        Context context = InstrumentationRegistry.getTargetContext();
-//        mDb = Room.inMemoryDatabaseBuilder(context, TestDatabase.class).build();
-//        mUserDao = mDb.getUserDao();
-//    }
-//
-//    @After
-//    public void closeDb() throws IOException {
-//        mDb.close();
-//    }
-//
-//    @Test
-//    public void writeUserAndReadInList() throws Exception {
-//        User user = TestUtil.createUser(3);
-//        user.setName("george");
-//        mUserDao.insert(user);
-//        List<User> byName = mUserDao.findUsersByName("george");
-//        assertThat(byName.get(0), equalTo(user));
-//    }
-//}

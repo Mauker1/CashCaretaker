@@ -6,14 +6,16 @@ import android.arch.persistence.room.RoomDatabase
 import android.content.Context
 import com.androidessence.cashcaretaker.dataTransferObjects.AccountR
 import com.androidessence.cashcaretaker.dataTransferObjects.CategoryR
+import com.androidessence.cashcaretaker.dataTransferObjects.RepeatingPeriodR
 
 /**
  * Database.
  */
-@Database(entities = arrayOf(AccountR::class, CategoryR::class), version = 6)
+@Database(entities = arrayOf(AccountR::class, CategoryR::class, RepeatingPeriodR::class), version = 6)
 abstract class CCDatabaseR : RoomDatabase() {
     abstract fun accountDao(): AccountDAOR
     abstract fun categoryDao(): CategoryDAOR
+    abstract fun repeatingPeriodDao(): RepeatingPeriodDAOR
 
     companion object {
         private var INSTANCE: CCDatabaseR? = null
