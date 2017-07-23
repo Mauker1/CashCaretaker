@@ -8,7 +8,9 @@ import android.support.test.runner.AndroidJUnit4
 import com.androidessence.cashcaretaker.activities.AccountsActivity
 import com.androidessence.cashcaretaker.core.AccountDAOR
 import com.androidessence.cashcaretaker.core.CCDatabaseR
+import com.androidessence.cashcaretaker.core.CategoryDAOR
 import com.androidessence.cashcaretaker.dataTransferObjects.AccountR
+import com.androidessence.cashcaretaker.dataTransferObjects.CategoryR
 import junit.framework.Assert
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
@@ -21,6 +23,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class CCDatabaseTest {
     private lateinit var accountDao: AccountDAOR
+    private lateinit var categoryDao: CategoryDAOR
 
     @Rule @JvmField val activityRule = ActivityTestRule<AccountsActivity>(AccountsActivity::class.java)
 
@@ -31,11 +34,13 @@ class CCDatabaseTest {
                 .allowMainThreadQueries()
                 .build()
         accountDao = database.accountDao()
+        categoryDao = database.categoryDao()
     }
 
     @After
     fun teardown() {
         accountDao.deleteAll()
+        categoryDao.deleteAll()
     }
 
     @Test
@@ -58,6 +63,28 @@ class CCDatabaseTest {
         accountDao.deleteAll()
         val accounts = accountDao.getAccounts()
         Assert.assertTrue(accounts.isEmpty())
+    }
+
+    @Test
+    fun testWriteReadCategories() {
+        val testCategory = CategoryR(description = "Payday", isDefault = false)
+        val ids = categoryDao.insert(testCategory)
+        testCategory.id = ids.first()
+
+        val categories = categoryDao.getCategories()
+        assertTrue(categories.isNotEmpty())
+        Assert.assertEquals(testCategory, categories.first())
+    }
+
+    @Test
+    fun testDeleteCategories() {
+        val testCategory = CategoryR(description = "Payday", isDefault  = false)
+        val ids = categoryDao.insert(testCategory)
+        assertTrue(ids.isNotEmpty())
+
+        categoryDao.deleteAll()
+        val categories = categoryDao.getCategories()
+        Assert.assertTrue(categories.isEmpty())
     }
 
     companion object {
