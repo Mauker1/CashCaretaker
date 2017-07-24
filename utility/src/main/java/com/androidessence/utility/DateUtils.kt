@@ -9,7 +9,7 @@ import java.util.*
  */
 object DateUtils {
     // Formats
-    private val DB_DATE_FORMAT = "yyyy-MM-dd"
+    private val DB_DATE_FORMAT = "yyyy-MM-dd HH:mm:ss"
     private val UI_DATE_FORMAT = "MMMM dd, yyyy"
     val dbDateFormatter = SimpleDateFormat(DB_DATE_FORMAT, Locale.getDefault())
     val uiDateFormatter = SimpleDateFormat(UI_DATE_FORMAT, Locale.getDefault())

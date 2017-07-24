@@ -32,4 +32,20 @@ data class TransactionR(
         @ColumnInfo(name = "transactionCategory") var category: Long = 0,
         @ColumnInfo(name = "transactionWithdrawal") var isWithdrawal: Boolean = true,
         @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "_id") var id: Long = 0
-)
+) {
+    override fun equals(other: Any?): Boolean {
+        return (other is TransactionR
+                && other.account == this.account
+                && other.description == this.description
+                && other.amount == this.amount
+                && other.notes == this.notes
+                //TODO: && other.date?.compareTo(this.date) == 0
+                && other.category == this.category
+                && other.isWithdrawal == this.isWithdrawal
+                && other.id == this.id)
+    }
+
+    override fun hashCode(): Int {
+        return super.hashCode()
+    }
+}

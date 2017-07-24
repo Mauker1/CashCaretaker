@@ -39,6 +39,7 @@ class CCDatabaseTest {
         accountDao = database.accountDao()
         categoryDao = database.categoryDao()
         repeatingPeriodDao = database.repeatingPeriodDao()
+        transactionDao = database.transactionDao()
     }
 
     @After
