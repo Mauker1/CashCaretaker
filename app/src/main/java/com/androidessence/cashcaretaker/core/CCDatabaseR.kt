@@ -3,19 +3,24 @@ package com.androidessence.cashcaretaker.core
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
+import android.arch.persistence.room.TypeConverters
 import android.content.Context
+import com.androidessence.cashcaretaker.Converters
 import com.androidessence.cashcaretaker.dataTransferObjects.AccountR
 import com.androidessence.cashcaretaker.dataTransferObjects.CategoryR
 import com.androidessence.cashcaretaker.dataTransferObjects.RepeatingPeriodR
+import com.androidessence.cashcaretaker.dataTransferObjects.TransactionR
 
 /**
  * Database.
  */
-@Database(entities = arrayOf(AccountR::class, CategoryR::class, RepeatingPeriodR::class), version = 6)
+@Database(entities = arrayOf(AccountR::class, CategoryR::class, RepeatingPeriodR::class, TransactionR::class), version = 6)
+@TypeConverters(Converters::class)
 abstract class CCDatabaseR : RoomDatabase() {
     abstract fun accountDao(): AccountDAOR
     abstract fun categoryDao(): CategoryDAOR
     abstract fun repeatingPeriodDao(): RepeatingPeriodDAOR
+    abstract fun transactionDao(): TransactionDAOR
 
     companion object {
         private var INSTANCE: CCDatabaseR? = null
