@@ -1,4 +1,4 @@
-package com.androidessence.cashcaretaker.core
+package com.androidessence.cashcaretaker.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
@@ -10,10 +10,10 @@ import com.androidessence.cashcaretaker.dataTransferObjects.RepeatingPeriodR
  */
 @Dao
 interface RepeatingPeriodDAOR {
-    @Query("SELECT * FROM repeatingPeriodTable")
+    @Query("SELECT * FROM repeatingPeriodr")
     fun getRepeatingPeriods(): List<RepeatingPeriodR>
 
-    @Query("DELETE FROM repeatingPeriodTable")
+    @Query("DELETE FROM repeatingPeriodr")
     fun deleteAll(): Int
 
     @Insert

@@ -1,4 +1,4 @@
-package com.androidessence.cashcaretaker.core
+package com.androidessence.cashcaretaker.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
@@ -10,13 +10,13 @@ import com.androidessence.cashcaretaker.dataTransferObjects.TransactionR
  */
 @Dao
 interface TransactionDAOR {
-    @Query("SELECT * FROM transactionTable")
+    @Query("SELECT * FROM transactionr")
     fun getTransactions(): List<TransactionR>
 
-    @Query("SELECT * FROM transactionTable WHERE transactionAccount = :arg0")
+    @Query("SELECT * FROM transactionr WHERE account = :arg0")
     fun getTransactionsForAccount(account: Long): List<TransactionR>
 
-    @Query("DELETE FROM transactionTable")
+    @Query("DELETE FROM transactionr")
     fun deleteAll(): Int
 
     @Insert

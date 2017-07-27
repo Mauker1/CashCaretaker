@@ -1,4 +1,4 @@
-package com.androidessence.cashcaretaker.core
+package com.androidessence.cashcaretaker.dao
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert
@@ -10,10 +10,10 @@ import com.androidessence.cashcaretaker.dataTransferObjects.CategoryR
  */
 @Dao
 interface CategoryDAOR {
-    @Query("SELECT * FROM categoryTable")
+    @Query("SELECT * FROM categoryr")
     fun getCategories(): List<CategoryR>
 
-    @Query("DELETE FROM categoryTable")
+    @Query("DELETE FROM categoryr")
     fun deleteAll(): Int
 
     @Insert

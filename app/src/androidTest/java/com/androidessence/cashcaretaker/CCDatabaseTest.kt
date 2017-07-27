@@ -6,7 +6,11 @@ import android.arch.persistence.room.migration.Migration
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import com.androidessence.cashcaretaker.activities.AccountsActivity
-import com.androidessence.cashcaretaker.core.*
+import com.androidessence.cashcaretaker.dao.AccountDAOR
+import com.androidessence.cashcaretaker.dao.CategoryDAOR
+import com.androidessence.cashcaretaker.dao.RepeatingPeriodDAOR
+import com.androidessence.cashcaretaker.dao.TransactionDAOR
+import com.androidessence.cashcaretaker.data.CCDatabaseR
 import com.androidessence.cashcaretaker.dataTransferObjects.AccountR
 import com.androidessence.cashcaretaker.dataTransferObjects.CategoryR
 import com.androidessence.cashcaretaker.dataTransferObjects.RepeatingPeriodR
